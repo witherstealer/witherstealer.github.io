@@ -1,0 +1,55 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1a1a1a;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 20px;
+}
+.logo {
+  color: #ff6600;
+  font-size: 24px;
+  font-weight: bold;
+}
+.register-btn {
+  background-color: #ff6600;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.register-btn:hover {
+  background-color: #e65c00;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  text-align: center;
+}
+.buttons {
+  margin-top: 20px; /* Espacio entre el título y los botones */
+}
+.button {
+  background-color: #ff6600;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px; /* Espacio entre botones */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.button:hover {
+  background-color: #e65c00;
+}
