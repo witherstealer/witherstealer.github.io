@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WitherStealer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a; /* Fondo más oscuro */
+            color: #e0e0e0; /* Color de texto claro */
+        }
 
+        header {
+            background-color: #1c1c1c; /* Fondo oscuro */
+            color: #ffffff; /* Texto blanco */
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Centramos los botones Home y Build */
+        .nav-buttons {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-buttons a {
+            background-color: #c62828; /* Rojo sangre */
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #d32f2f; /* Rojo más claro al pasar el ratón */
+        }
+
+        .register-btn {
+            background-color: #c62828; /* Rojo sangre */
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .register-btn:hover {
+            background-color: #d32f2f; /* Rojo más claro al pasar el ratón */
+        }
+
+        .content {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .buttons-container {
+            margin: 20px 0;
+        }
+
+        .button {
+            background-color: #c62828; /* Rojo sangre */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px; /* Separación entre botones */
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #d32f2f; /* Rojo más claro al pasar el ratón */
+        }
+
+        /* Estilos del Modal */
+        .modal {
+            display: none; /* Ocultado por defecto */
+            position: fixed;
+            z-index: 1; /* Por encima de todo */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Alto completo */
+            overflow: auto; /* Desplazamiento si es necesario */
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+            padding-top: 60px; /* Espacio superior */
+        }
+        .modal-content {
+            background-color: #1c1c1c; /* Fondo del modal */
+            margin: 5% auto; /* Centro */
+            padding: 20px;
+            border: 1px solid #c62828; /* Borde rojo */
+            width: 80%; /* Ancho */
+            color: white; /* Color del texto */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+        .close {
+            color: #aaa; /* Color de cierre */
+            float: right; /* A la derecha */
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: white; /* Cambiar color al pasar el mouse */
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">WITHERST€@L€R</div>
+        <div class="nav-buttons">
+            <a href="/">Home</a> <!-- Botón de Home -->
+            <a href="/dashboard" id="build-btn" style="display:none;">Build</a> <!-- Botón de Build que se oculta inicialmente -->
+        </div>
+        <div>
+            <button id="guest-btn" class="register-btn">Guest</button>
+        </div>
+    </header>
+    <div class="content">
+        <h1 style="color: #c62828;">WitherStealer By Yery</h1> <!-- Título en rojo sangre -->
+        <div class="buttons-container">
+            <a href="/potential" class="button">Potential</a>
+            <a href="/skills" class="button">Skills</a>
+            <a href="/features" class="button">Features</a>
+            <a href="/pricing" class="button">Pricing</a>
+        </div>
+        <div id="login-info" style="margin-top: 20px;"></div> <!-- Para mostrar la info de inicio de sesión -->
+    </div>
+
+    <!-- El Modal -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Tu Cuenta</h2>
+            <p>Tu nombre de usuario: <span id="username">Guest</span></p>
+            <p id="login-status">No logged</p>
+            <div>
+                <button id="register-btn" class="button">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar si el usuario está logeado
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const username = localStorage.getItem('username');
+
+        if (isLoggedIn) {
+            document.getElementById('login-info').innerText = "Bienvenido, " + username;
+            document.getElementById('guest-btn').innerText = "Logout";
+            document.getElementById('build-btn').style.display = 'inline'; // Mostrar el botón "Build" si está logeado
+            document.getElementById('guest-btn').onclick = function() {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('username');
+                alert("Has cerrado sesión.");
+                window.location.reload();
+            };
+        } else {
+            document.getElementById('login-info').innerText = "No has iniciado sesión.";
+            document.getElementById('guest-btn').onclick = function() {
+                window.location.href = '/login';
+            };
+        }
+    </script>
+</body>
+</html>

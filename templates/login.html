@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #c62828;
+            border-radius: 5px;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+        button {
+            background-color: #c62828;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="username" placeholder="Nombre de usuario" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <button id="login-button">Iniciar Sesión</button>
+        <p id="message" style="color: red;"></p>
+    </div>
+
+    <script>
+        // Simulación de usuarios existentes (sería como una base de datos)
+        const users = {
+            "yery": "witherstealer", // Usuario de prueba
+            "oski": "witherstealer"  // Otro usuario de prueba
+        };
+
+        document.getElementById('login-button').onclick = function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Verificar si el usuario existe
+            if (users[username] && users[username] === password) {
+                // Guardar el estado de inicio de sesión (simulando sesión)
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('username', username);
+
+                alert("¡Inicio de sesión exitoso!");
+                // Redirigir al usuario a la página principal
+                window.location.href = "/"; // Redirige a la página principal
+            } else {
+                document.getElementById('message').innerText = "Nombre de usuario o contraseña incorrectos.";
+            }
+        };
+    </script>
+</body>
+</html>
